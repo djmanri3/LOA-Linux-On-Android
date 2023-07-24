@@ -55,16 +55,16 @@ Este script insatala los siguientes paquetes:
 
 Hay que tener en cuenta que el archivo **termux-x11.deb** se debe descargar de la aplicación Telegram o del repo, pero este se tiene que encontrar en la carpeta de Download/Telegram, si no, **no lo instalará**
 
-- [ ] Primero tener instalado termux y termux:x11
+- [ ] Primero tener instalado termux https://f-droid.org/repo/com.termux_118.apk
 - [ ] Ejecutar el script **install_environment.sh** con el parametro **vanila**
 ```
 ./install_environment.sh vanila
 ```
-- [ ] El script anterior generará un script llamado **start_environment.sh** con este arrancaremos el entorno
+- [ ] El script anterior generará un script llamado **start_environment.sh** con este arrancaremos el entorno o ejecutando ./install_environment.sh vanila_start 
 
 ### Uso
 1. Primero deberemos de abrir la app **termux:x11**
-2. Posteriormente ejecutaremos el siguiente script **start_environment.sh** (./start_environment.sh)
+2. Posteriormente ejecutaremos el siguiente script **start_environment.sh** (./start_environment.sh vanila_start)
 
 ## CON PROOT
 
@@ -90,16 +90,16 @@ Hay que tener en cuenta que el archivo **termux-x11.deb** se debe descargar de l
 
 ### Instalación
 
-- [ ] Primero tener instalado termux y termux:x11
+- [ ] Primero tener instalado termux https://f-droid.org/repo/com.termux_118.apk
 - [ ] Realizar un **apt update && apt upgrade**
 - [ ] Posteriormente ejecutar el script **install_environment.sh** con el parametro proot
 ```
 ./install_environment.sh proot
 ```
-- [ ] Abriremos una de las aplicaciones para el manejo de ventabas (Termux-x11 o XServer XDLS), posteriormente nos situaremos en la carpeta **proot_scripts** y ejecutaremos el script dependiendo si utilizamos Termux-x11 o XServer XDLS
+- [ ] Abriremos una de las aplicaciones para el manejo de ventabas (Termux-x11 o XServer XDLS), posteriormente ejecutaremos el siguiente comando ./install_environment.sh proot_start
 #### Termux-x11
 ```
-cd proot_scripts && ./proot_ui.sh
+./install_environment.sh proot_start
 ```
 
 #### XServer XDLS
@@ -109,7 +109,7 @@ cd proot_scripts && ./proot_ui_low.sh
 
 ### Uso
 1. Primero deberemos de abrir la app **termux:x11** o XServer XDLS
-2. Ejecutamos el script **proot_ui.sh** (Termux-x11) o **proot_ui_low.sh** (XServer XDLS) (estos scripts se encargan de que arranque todos los servicios dentro de proot)
+2. Ejecutamos el script **./install_environment.sh proot_start** (Termux-x11) o **proot_ui_low.sh** (XServer XDLS) (estos scripts se encargan de que arranque todos los servicios dentro de proot)
 
 ### Instalación de Chromium
 
@@ -119,3 +119,8 @@ Unicamente deberemos ejecutar dentro del proot el script llamado **install_chrom
 
 - Udroid: https://udroid-rc.gitbook.io/udroid-wiki/udroid-landing/readme
 - Canal de YouTube sobre el tema: https://www.youtube.com/@TechnicalBot
+
+# Agradecimientos
+- Equipo de udroid
+- Canal de YpuTube Tecnicalbot
+- Equipo de termux
