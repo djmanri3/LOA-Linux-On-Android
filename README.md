@@ -12,12 +12,19 @@
 ## Arbol de directorios
 ```
 ├── install_environment.sh
-├── install_kde_vnc_and_x11.sh
+├── lib
 ├── install_ssh_server.sh
-└── proot_scripts
-    ├── install_proot.sh
-    ├── proot_ui.sh
-    └── proot_ui_low.sh
+    └── proot_scripts
+        ├── install_kde_vnc_and_x11.sh
+        ├── install_proot.sh
+        ├── proot_ui.sh
+        └── proot_ui_low.sh
+    ├── termux-x11
+        ├── termux-x11-nightly-1.02.07-0-all.deb
+        ├── termux-x11-universal.apk
+    ├── tools
+        ├── install_ssh_server.sh
+        ├── termux-api.apk
 ```
 
 ## Paquetes que se instalarán
