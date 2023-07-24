@@ -26,9 +26,7 @@ else
     chmod u+x $proot/install_chromium.sh
 fi
 
-udroid -l jammy:xfce4 << EOF
-./start.sh
-EOF
+udroid -l jammy:xfce4 ./start.sh
 
 # Install as bin
 if [ -f $PREFIX/bin/$BIN_NAME ]
