@@ -17,6 +17,7 @@ msg()    { echo -e "${*} \e[0m" >&2;:;}
 # ----------------
 
 ### Chromium
+apt update && apt upgrade
 packages="chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg-extra"
 
 # check is script running as root
