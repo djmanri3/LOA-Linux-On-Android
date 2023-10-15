@@ -2,125 +2,147 @@
 
 ![Screenshot](Linux_on_Android2.png)
 
-## Requirimientos
-- termux terminal app
-- termux api app (ssh)
-- Server X11
-    - termux:x11 app (telegram o repo oficial https://github.com/termux/termux-x11/actions/workflows/debug_build.yml)
-    - XServer XDLS (en la Play Store)
+# Index
+1. [Requirements](#id1)
+2. [Tree directories](#id2)
+3. [Packages to install](#id3)
+4. [NO PROOT](#id4)
+5. [PROOT](#id5)
+6. [TOOLS](#id6)
+7. [Links of interest](#id7)
+8. [Acknowledgements](#id8)
 
-## Arbol de directorios
+## Requirements: <a name="id1"></a>
+- Termux terminal app
+- [Optional] termux api app (SSH server) [Script install]
+- Server X11
+    - termux:x11 [Script install]
+
+## Tree directories <a name="id2"></a>
 ```
 ├── install_environment.sh
-├── lib
-├── install_ssh_server.sh
-    └── proot_scripts
-        ├── install_kde_vnc_and_x11.sh
-        ├── install_proot.sh
-        ├── proot_ui.sh
-        └── proot_ui_low.sh
+└── lib
+    ├── proot_scripts
+    │   ├── arch
+    │   │   ├── install_cutefish_vnc_and_x11.sh
+    │   │   ├── install_kde_vnc_and_x11.sh
+    │   │   ├── install_lxqt_vnc_and_x11.sh
+    │   │   └── install_xfce_vnc_and_x11.sh
+    │   ├── debian
+    │   │   ├── install_kde_vnc_and_x11.sh
+    │   │   └── install_xfce_vnc_and_x11.sh
+    │   ├── install_kde_vnc_and_x11.sh
+    │   ├── install_proot.sh
+    │   ├── proot_ui.sh
+    │   ├── proot_ui_low.sh
+    │   ├── raspbian
+    │   │   └── install_lxde_vnc_and_x11.sh
+    │   └── ubuntu
+    │       ├── install_kde_vnc_and_x11.sh
+    │       └── install_xfce_vnc_and_x11.sh
     ├── termux-x11
-        ├── termux-x11-nightly-1.02.07-0-all.deb
-        ├── termux-x11-universal.apk
-    ├── tools
+    │   ├── termux-x11-nightly-1.02.07-0-all.deb
+    │   ├── termux-x11-nightly-1.03.00-0-all.deb
+    │   └── termux-x11-universal.apk
+    └── tools
+        ├── connect_x11.sh
         ├── install_ssh_server.sh
-        ├── termux-api.apk
+        └── termux-api.apk
 ```
 
-## Paquetes que se instalarán
-Este script insatala los siguientes paquetes:
-- x11-repo
-- pulseaudio
-- openssl
+## Packages to install  <a name="id3"></a>
+- X11-repo
+- Pulseaudio
+- Openssl
 - xfce4*
-- firefox
-- termux-x11.deb (en telegram o en el repo oficial https://github.com/termux/termux-x11/actions/workflows/debug_build.yml)
+- Firefox
+- Chromium
+- Termux-x11.deb (stable)
 
-## SIN PROOT
+## NO PROOT  <a name="id4"></a>
+### - Scripts:
+- **install_environment.sh**: Install all packages of DE (Desktop Environment) and x11 utils
 
-### Scripts necesario:
-- **install_environment.sh**: instala todos los paquetes necesarios para el entorno, x11 y genera el script para arrancar el entorno
+### - Advantages:
+- Lighter: Only install Desktop Environment
+- More optimal: Only run Desktop Environment
 
-### PROS:
-- Más liviano: ya que unicmanete se instala el entorno xfce4
-- Más optimo: como unicamente carga un entorno de escritorio es más rapido
+### - Disadvantages:
+- Less package support: Limited to packages found in termux repos
+- Less privileges: If our device is not rooted, we will not be able to perform commands with root
 
-### CONTRAS:
-- Menor compativilidad con paquetes: estamos limitados a los repos de termux
-- Menos privilegios: si nuestro dispositivo no esta roteado no podremos escalar a root
-- El audio del navegador Firefox no funciona
-- No podemos instalar Chromium
-
-### Instalación
-
-Hay que tener en cuenta que el archivo **termux-x11.deb** se debe descargar de la aplicación Telegram o del repo, pero este se tiene que encontrar en la carpeta de Download/Telegram, si no, **no lo instalará**
-
-- [ ] Primero tener instalado termux https://f-droid.org/repo/com.termux_118.apk
-- [ ] Ejecutar el script **install_environment.sh** con el parametro **vanila**
+### - Install:
+- [ ] Install Termux https://f-droid.org/repo/com.termux_118.apk
+- [ ] Execute **install_environment.sh** with param **vanila**
 ```
 ./install_environment.sh vanila
 ```
-- [ ] El script anterior generará un script llamado **start_environment.sh** con este arrancaremos el entorno o ejecutando ./install_environment.sh vanila_start 
 
-### Uso
-1. Primero deberemos de abrir la app **termux:x11**
-2. Posteriormente ejecutaremos el siguiente script **start_environment.sh** (./start_environment.sh vanila_start)
+### - Start environment:
+- [ ] Execute command **x11vani**
+- [ ] Or install termux:widget[https://f-droid.org/es/packages/com.termux.widget/] add wifdget on home screen, tap on x11vani
 
-## CON PROOT
+## PROOT  <a name="id5"></a>
+### - Scripts:
+- **install_environment.sh**: Install all packages of DE (Desktop Environment) and x11 utils
+- **lib/proot_scripts/**: Install script with Desktop environments
+- **lib/termux-x11/**: Packages of termux and apps
+- **lib/tools/**: Tools for use
 
-### Scripts necesario:
-- **install_environment.sh**: instala todos los paquetes necesarios para el entorno, x11 y genera el script para arrancar el entorno
-- **install_proot.sh**: realiza la instalación de proot con el entorno XFCE4 y distribución Ubuntu
-- **proot_ui.sh**: Configura la pantalla virtual mediante **Termux-x11** para que sea accesible por proot
-- **proot_ui_low.sh**: Configura la pantalla virtual medinate **XServer XDLS** para que sea accesible por proot
-- **start.sh**: Inicia el servicio de pulseaudio y el escritorio con **Termux-x11**
-- **start_low.sh**: Inicia el servicio de pulseaudio y el escritorio con **XServer XDLS**
-- **install_chromium.sh**: instala chromium dentro de proot (ejecutar dentro de este mismo)
+### - Advantages:
+- Greater freedom: We have access to the sudo command (root)
+- More packages: all packages for Ubuntu, Debian, Raspbian and Arch
 
-### PROS:
-- Mayor libertad: ya que somos usuarios root
-- Mayor cantidad de paquetes instalables y dependencias: podremos instalar todo lo que este contemplado en los repos de Ubuntu (el unico problema que me he encontrado es al instalar Firefox ya que hay que instalarlo por snap)
-- Podemos instalar Chromium!
-- El audio funciona en el navegador (Chromium)
+### - Disadvantages:
+- Heavier system: More background processes are needed to start the environment
+- Takes up more space: This is because our device will contain all the necessary files of the chosen distro.
 
-### CONTRAS:
-- Sistema más pesado: esto es debido a que hemos instalado una versión entera de Ubuntu
-- Ocupa mayor espacio: al estar instalado un Ubuntu normal y corriente tenemos bastantes paquetes que algunos nunca utilizaremos
-- No podremos instalar Firefox: debido a que para instalar paquetes de tipo snap necesitamos systemd
+### - Install:
 
-### Instalación
-
-- [ ] Primero tener instalado termux https://f-droid.org/repo/com.termux_118.apk
-- [ ] Realizar un **apt update && apt upgrade**
-- [ ] Posteriormente ejecutar el script **install_environment.sh** con el parametro proot
+- [ ] Install Termux app https://f-droid.org/repo/com.termux_118.apk
+- [ ] Execute **install_environment.sh** with param proot
 ```
 ./install_environment.sh proot
 ```
-- [ ] Abriremos una de las aplicaciones para el manejo de ventabas (Termux-x11 o XServer XDLS), posteriormente ejecutaremos el siguiente comando ./install_environment.sh proot_start
-#### Termux-x11
+- [ ] Enter the number of the distro we want with which desktop environment
+
+### - Start environment:
+- [ ] Execute command **x11[Distro]**
+    - **Ubuntu**: ubun
+    - **Debian**: debi
+    - **Raspbian**: pi
+    - **Archlinux**: arch
+- [ ] Or install termux:widget[https://f-droid.org/es/packages/com.termux.widget/] add wifdget on home screen, tap on x11[**Distro**]
+
+## Tools  <a name="id6"></a>
+### Server ssh
+#### - Install:
+- [ ] Install Termux https://f-droid.org/repo/com.termux_118.apk
+- [ ] Execute **install_environment.sh** with param **ssh_server**
 ```
-./install_environment.sh proot_start
+./install_environment.sh ssh_server
 ```
 
-#### XServer XDLS
+#### - Start SSH server:
+- [ ] Execute command **sshd**
+
+### Connect X11
+#### - Install:
+- [ ] Install Termux https://f-droid.org/repo/com.termux_118.apk
+- [ ] Execute **install_environment.sh** with param **connect_x11 -s**
 ```
-cd proot_scripts && ./proot_ui_low.sh
+./install_environment.sh  connect_x11 -s
 ```
 
-### Uso
-1. Primero deberemos de abrir la app **termux:x11** o XServer XDLS
-2. Ejecutamos el script **./install_environment.sh proot_start** (Termux-x11) o **proot_ui_low.sh** (XServer XDLS) (estos scripts se encargan de que arranque todos los servicios dentro de proot)
+#### - Connect to X11 session:
+- [ ] Execute command **./install_environment.sh  connect_x11** and follow the setup.
 
-### Instalación de Chromium
-
-Unicamente deberemos ejecutar dentro del proot el script llamado **install_chromium.sh**
-
-# Links de interes sobre este proyecto:
-
+# Links of interest:  <a name="id7"></a>
+- Proot-distro: https://github.com/termux/proot-distro
 - Udroid: https://udroid-rc.gitbook.io/udroid-wiki/udroid-landing/readme
-- Canal de YouTube sobre el tema: https://www.youtube.com/@TechnicalBot
+- Termux-x11: https://github.com/termux/termux-x11
 
-# Agradecimientos
-- Equipo de udroid
-- Canal de YpuTube Tecnicalbot
-- Equipo de termux
+# Acknowledgements:  <a name="id8"></a>
+- Team Udroid
+- YouTube chanel Tecnicalbot
+- Team termux
