@@ -93,26 +93,27 @@ files(){
 proot_setup(){
 
 	chmod u+x ./lib/proot_scripts/install_proot.sh
+	clear
 	echo
 	echo " ===================="
 	echo -e "$b PRoot Distro install$n"
 	echo " ===================="
 	echo
-	echo -e "- "$o"Ubuntu$n ------------------------"
+	echo -e "- 🟠"$o"Ubuntu$n ------------------------"
 	echo -e ""$b"1$n. Desktop Environment: "$b"XFCE4$n"
 	echo -e ""$b"2$n. Desktop Environment: "$b"KDE$n"
 	echo
-	echo -e "- "$r"Debian$n ------------------------"
+	echo -e "- 🔴"$r"Debian$n ------------------------"
 	echo -e ""$b"3$n. Desktop Environment: "$b"XFCE4$n"
 	echo -e ""$b"4$n. Desktop Environment: "$b"KDE$n"
 	echo
-	echo -e "- "$b"ArchLinux$n ---------------------"
+	echo -e "- 🔵"$b"ArchLinux$n ---------------------"
 	echo -e ""$b"5$n. Desktop Environment: "$b"KDE$n"
 	echo -e ""$b"6$n. Desktop Environment: "$b"CuteFish$n"
 	echo -e ""$b"7$n. Desktop Environment: "$b"XFCE4$n"
 	echo -e ""$b"8$n. Desktop Environment: "$b"LXQT$n"
 	echo
-	echo -e "- "$r"Raspbian OS$n ---------------------"
+	echo -e "- 🍓"$r"Raspbian OS$n ---------------------"
 	echo -e ""$b"9$n. Desktop Environment: "$b"LXDE$n"
 	echo
 	read -p "What distro and DE (Desktop Environment) use (input number 1..9): " s
