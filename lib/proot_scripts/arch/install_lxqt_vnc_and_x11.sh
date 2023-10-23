@@ -52,10 +52,10 @@ function gen_install {
 	echo 'echo -e "- "$g"Fix$n "$b"chromium$n run..."' >> $proot_folder/root/$ui_install
 	echo "sed 's/chromium %U/chromium %U --no-sandbox/' /usr/share/applications/chromium.desktop > ./chromium.desktop" >> $proot_folder/root/$ui_install
 	echo "mv ./chromium.desktop /usr/share/applications/chromium.desktop" >> $proot_folder/root/$ui_install
-        echo 'echo -e "- Config "$b"VNC$n..."' >> $proot_folder/root/$ui_install
-        echo 'echo "geometry=1920x1080" >> /etc/tigervnc/vncserver-config-defaults' >> $proot_folder/root/$ui_install
-        echo 'echo -e "- Configure "$b"password$n to conect "$b"VNC$n..."' >> $proot_folder/root/$ui_install
-        echo "vncpasswd" >> $proot_folder/root/$ui_install
+    echo 'echo -e "- Config "$b"VNC$n..."' >> $proot_folder/root/$ui_install
+    echo 'echo "geometry=1920x1080" >> /etc/tigervnc/vncserver-config-defaults' >> $proot_folder/root/$ui_install
+    echo 'echo -e "- Configure "$b"password$n to conect "$b"VNC$n..."' >> $proot_folder/root/$ui_install
+    echo "vncpasswd" >> $proot_folder/root/$ui_install
 	chmod u+x $proot_folder/root/$ui_install
 }
 
