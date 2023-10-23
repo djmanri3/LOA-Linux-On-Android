@@ -17,7 +17,7 @@ r="\e[0;31m"
 g="\e[1;32m"
 
 
-# Install proot arch
+# Install proot ubunt
 function setup {
 	apt update && apt install tigervnc xorg-xhost proot-distro -y
 	proot-distro install $distro_name
@@ -103,17 +103,17 @@ read -p "Name do you want for proot user: " uname
 gen_install
 if [ $? != 0 ]
 then
-	echo -e ""$r"[ERROR]$n Generate script file of install packages in arch failled!"
+	echo -e ""$r"[ERROR]$n Generate script file of install packages in ubunt failled!"
 else
-	echo -e ""$g"[OK]$n Generate script file of install packages in arch"
+	echo -e ""$g"[OK]$n Generate script file of install packages in ubunt"
 fi
 
 gen_startubun
 if [ $? != 0 ]
 then
-	echo -e ""$r"[ERROR]$n Generate script file of power on arch failled!"
+	echo -e ""$r"[ERROR]$n Generate script file of power on ubunt failled!"
 else
-	echo -e ""$g"[OK]$n Generate script file of power on arch"
+	echo -e ""$g"[OK]$n Generate script file of power on ubunt"
 fi
 
 gen_startx11

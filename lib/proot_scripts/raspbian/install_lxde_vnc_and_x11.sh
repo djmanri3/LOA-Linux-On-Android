@@ -25,7 +25,7 @@ r="\e[0;31m"
 g="\e[1;32m"
 
 
-# Install proot arch
+# Install proot rasbian
 function setup {
 	apt update && apt install tigervnc xorg-xhost proot-distro -y
 	echo "DISTRO_NAME="$distro_name"" > $PREFIX/etc/proot-distro/pi.sh
@@ -136,7 +136,7 @@ read -p "Name do you want for proot user: " uname
 gen_install
 if [ $? != 0 ]
 then
-	echo -e ""$r"[ERROR]$n Generate script file of install packages in arch failled!"
+	echo -e ""$r"[ERROR]$n Generate script file of install packages in debian failled!"
 else
 	echo -e ""$g"[OK]$n Generate script file of install packages in Raspbian Os"
 fi
@@ -144,7 +144,7 @@ fi
 gen_startpi
 if [ $? != 0 ]
 then
-	echo -e ""$r"[ERROR]$n Generate script file of power on arch failled!"
+	echo -e ""$r"[ERROR]$n Generate script file of power on debian failled!"
 else
 	echo -e ""$g"[OK]$n Generate script file of power on Raspbian Os"
 fi
@@ -160,7 +160,7 @@ fi
 gen_startubunvnc
 if [ $? != 0 ]
 then
-	echo -e ""$r"[ERROR]$n Generate script file to start arch vnc failled!"
+	echo -e ""$r"[ERROR]$n Generate script file to start debian vnc failled!"
 else
 	echo -e ""$g"[OK]$n Generate script file to start Raspbian Os vnc"
 fi

@@ -19,7 +19,7 @@ r="\e[0;31m"
 g="\e[1;32m"
 
 
-# Install proot arch
+# Install proot debian
 function setup {
 	apt update && apt install tigervnc xorg-xhost proot-distro -y
 	proot-distro install $distro_name
@@ -125,17 +125,17 @@ read -p "Name do you want for proot user: " uname
 gen_install
 if [ $? != 0 ]
 then
-	echo -e ""$r"[ERROR]$n Generate script file of install packages in arch failled!"
+	echo -e ""$r"[ERROR]$n Generate script file of install packages in debian failled!"
 else
-	echo -e ""$g"[OK]$n Generate script file of install packages in arch"
+	echo -e ""$g"[OK]$n Generate script file of install packages in debian"
 fi
 
 gen_startubun
 if [ $? != 0 ]
 then
-	echo -e ""$r"[ERROR]$n Generate script file of power on arch failled!"
+	echo -e ""$r"[ERROR]$n Generate script file of power on debian failled!"
 else
-	echo -e ""$g"[OK]$n Generate script file of power on arch"
+	echo -e ""$g"[OK]$n Generate script file of power on debian"
 fi
 
 gen_startx11
@@ -149,9 +149,9 @@ fi
 gen_startubunvnc
 if [ $? != 0 ]
 then
-	echo -e ""$r"[ERROR]$n Generate script file to start arch vnc failled!"
+	echo -e ""$r"[ERROR]$n Generate script file to start debian vnc failled!"
 else
-	echo -e ""$g"[OK]$n Generate script file to start arch vnc"
+	echo -e ""$g"[OK]$n Generate script file to start debian vnc"
 fi
 
 gen_startvnc
