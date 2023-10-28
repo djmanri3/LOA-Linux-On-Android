@@ -63,7 +63,7 @@ function gen_install {
 function gen_startarch {
 	echo "am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity" > $proot_out/x11arch
 	echo "pulseaudio --start --load='module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1' --exit-idle-time=-1" >> $proot_out/x11arch
-	echo "proot-distro login archlinux --shared-tmp -- runuser -l $uname -c x11start" >> $proot_out/x11arch
+	echo "proot-distro login archlinux --shared-tmp --user $uname -- x11start" >> $proot_out/x11arch
 	chmod u+x $proot_out/x11arch
 	if [ -d /data/data/com.termux/files/home/.shortcuts ]
 	then

@@ -58,7 +58,7 @@ function gen_install {
 function gen_startubun {
 	echo "am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity" > $proot_out/x11ubun
 	echo "pulseaudio --start --load='module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1' --exit-idle-time=-1" >> $proot_out/x11ubun
-	echo "proot-distro login $distro_name --shared-tmp -- runuser -l $uname -c x11start" >> $proot_out/x11ubun
+	echo "proot-distro login $distro_name --shared-tmp --user $uname -- x11start" >> $proot_out/x11ubun
 	chmod u+x $proot_out/x11ubun
 	if [ -d /data/data/com.termux/files/home/.shortcuts ]
 	then
