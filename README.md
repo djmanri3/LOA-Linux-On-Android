@@ -17,6 +17,8 @@
 - [Optional] termux api app (SSH server) [Script install]
 - Server X11
     - termux:x11 [Script install]
+- Fix error 9 or auto close termux: need **pc** and **adb install**, enable adb debug in your phone and execute this command in pc
+``` ./adb shell "settings put global settings_enable_monitor_phantom_procs false" ```
 
 ## Tree directories <a name="id2"></a>
 ```
