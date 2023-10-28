@@ -38,7 +38,7 @@ function gen_install {
 	echo "pacman -Syu --noconfirm" >> $proot_folder/root/$ui_install
 	echo "echo" >> $proot_folder/root/$ui_install
 	echo 'echo -e "- "$g"Installing$n "$b"$ui_name $n"' >> $proot_folder/root/$ui_install
-	echo "pacman -S --noconfirm xorg sddm $ui_package dolphin icu chromium tigervnc pulseaudio sudo" >> $proot_folder/root/$ui_install
+	echo "pacman -S --noconfirm xorg lightdm $ui_package dolphin icu chromium tigervnc pulseaudio sudo" >> $proot_folder/root/$ui_install
 	echo "echo">> $proot_folder/root/$ui_install
 	echo 'echo -e "- "$b"Create local user$n"'>> $proot_folder/root/$ui_install
 	echo 'mkdir /home/$uname && useradd $uname -b /home/ && chown $uname:$uname /home/$uname'>> $proot_folder/root/$ui_install

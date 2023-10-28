@@ -41,7 +41,7 @@ function gen_install {
 	echo "apt update #&& apt upgrade -y" >> $proot_folder/root/$ui_install
 	echo "echo" >> $proot_folder/root/$ui_install
 	echo 'echo -e "- "$g"Installing$n "$b"$ui_name $n"' >> $proot_folder/root/$ui_install
-	echo "apt install -y xorg sddm $ui_package pulseaudio sudo" >> $proot_folder/root/$ui_install
+	echo "apt install -y xorg lightdm $ui_package pulseaudio sudo" >> $proot_folder/root/$ui_install
 	echo "echo">> $proot_folder/root/$ui_install
 	echo 'echo -e "- "$b"Create local user$n"'>> $proot_folder/root/$ui_install
 	echo 'mkdir /home/$uname && useradd $uname -b /home/ -s /bin/bash && chown $uname:$uname /home/$uname'>> $proot_folder/root/$ui_install
