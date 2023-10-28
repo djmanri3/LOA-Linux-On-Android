@@ -37,7 +37,7 @@
     │   ├── install_proot.sh
     │   ├── proot_ui.sh
     │   ├── proot_ui_low.sh
-    │   ├── raspbian
+    │   ├── raspberry_os
     │   │   └── install_lxde_vnc_and_x11.sh
     │   └── ubuntu
     │       ├── install_kde_vnc_and_x11.sh
