@@ -19,6 +19,7 @@
     - termux:x11 [Script install]
 - Fix error 9 or auto close termux: need **pc** and **adb install**, enable adb debug in your phone and execute this command in pc
 ``` ./adb shell "settings put global settings_enable_monitor_phantom_procs false" ```
+- Update, upgrade and download repo on Termux: pkg update -y && pkg upgrade -y && pkg install -y git && git clone https://github.com/djmanri3/LOA-Linux-On-Android.git && cd LOA-Linux-On-Android/
 
 ## Tree directories <a name="id2"></a>
 ```
