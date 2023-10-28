@@ -113,7 +113,7 @@ proot_setup(){
 	echo -e ""$b"7$n. Desktop Environment: "$b"XFCE4$n"
 	echo -e ""$b"8$n. Desktop Environment: "$b"LXQT$n"
 	echo
-	echo -e "- 🍓"$r"Raspbian OS$n ---------------------"
+	echo -e "- 🍓"$r"Raspberry OS$n ---------------------"
 	echo -e ""$b"9$n. Desktop Environment: "$b"LXDE$n"
 	echo
 	read -p "What distro and DE (Desktop Environment) use (input number 1..9): " s
@@ -178,8 +178,8 @@ proot_setup(){
 
 		9)
 			echo
-			echo -e "- Installing "$r"Raspbian Os$n whith DE "$b"LXDE$n"
-			./lib/proot_scripts/raspbian/install_lxde_vnc_and_x11.sh
+			echo -e "- Installing "$r"Raspberry Os$n whith DE "$b"LXDE$n"
+			./lib/proot_scripts/raspberry_os/install_lxde_vnc_and_x11.sh
 		;;
 
 	esac
