@@ -51,7 +51,7 @@ function gen_install {
 	echo 'echo -e ""$b"INTO PROOT DISTRO$n "$g" $distro_name $n..."' >> $proot_folder/root/$ui_install
 	echo "echo" >> $proot_folder/root/$ui_install
 	echo 'echo -e "- "$g"Upgrade$n "$b" $distro_name $n"' >>$proot_folder/root/$ui_install
-	echo "apt update #&& apt upgrade -y" >> $proot_folder/root/$ui_install
+	echo "apt update && apt upgrade -y" >> $proot_folder/root/$ui_install
 	echo "echo" >> $proot_folder/root/$ui_install
 	echo 'echo -e "- "$g"Installing$n "$b"$ui_name $n"' >> $proot_folder/root/$ui_install
 	echo "apt install -y xorg lightdm $ui_package pulseaudio sudo $vnc_package lxterminal neofetch" >> $proot_folder/root/$ui_install
