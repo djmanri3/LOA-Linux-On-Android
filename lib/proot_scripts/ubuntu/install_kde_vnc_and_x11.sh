@@ -21,44 +21,54 @@ g="\e[1;32m"
 function setup {
 	apt update && apt install tigervnc xorg-xhost proot-distro -y
 	proot-distro install $distro_name
+	cp lib/proot_scripts/.data/install_chromium.sh $proot_folder/root/
+	chmod u+x $proot_folder/root/install_chromium.sh
 }
 
 # Install Desktop Environment
 function gen_install {
-	cp ./lib/proot_scripts/.data/install_chromium.sh $proot_folder/root/
-	echo "distro_name=$distro_name" > $proot_folder/root/$ui_install
-	echo '## Colors' >> $proot_folder/root/$ui_install
-	echo 'n="\e[0m"'  >> $proot_folder/root/$ui_install
-	echo 'b="\e[0;36m"' >> $proot_folder/root/$ui_install
-	echo 'r="\e[0;31m"' >> $proot_folder/root/$ui_install
-	echo 'g="\e[1;32m"' >> $proot_folder/root/$ui_install
-	echo "uname=$uname">> $proot_folder/root/$ui_install
-	echo "ui_name=$ui_name">> $proot_folder/root/$ui_install
-	echo "clear" >> $proot_folder/root/$ui_install
-	echo 'echo -e ""$b"INTO PROOT DISTRO$n "$g" $distro_name $n..."' >> $proot_folder/root/$ui_install
-	echo "echo" >> $proot_folder/root/$ui_install
-	echo 'echo -e "- "$g"Upgrade$n "$b" $distro_name $n"' >>$proot_folder/root/$ui_install
-	echo "apt update #&& apt upgrade -y" >> $proot_folder/root/$ui_install
-	echo "echo" >> $proot_folder/root/$ui_install
-	echo 'echo -e "- "$g"Installing$n "$b"$ui_name $n"' >> $proot_folder/root/$ui_install
-	echo "apt install -y xorg lightdm $ui_package pulseaudio sudo" >> $proot_folder/root/$ui_install
-	echo "echo">> $proot_folder/root/$ui_install
-	echo 'echo -e "- "$b"Create local user$n"'>> $proot_folder/root/$ui_install
-	echo 'mkdir /home/$uname && useradd $uname -b /home/ -s /bin/bash && chown $uname:$uname /home/$uname'>> $proot_folder/root/$ui_install
-	echo 'echo -e "---- "$g"Set password$n for "$b"local user$n"' >> $proot_folder/root/$ui_install
-	echo 'passwd $uname' >> $proot_folder/root/$ui_install
-	echo 'echo -e "---- "$g"Add user$n to "$b"sudoers$n"'>> $proot_folder/root/$ui_install
-	echo 'echo "$uname ALL=("ALL:ALL") ALL" >> /etc/sudoers' >> $proot_folder/root/$ui_install
-	echo 'echo -e "- "$g"Install$n "$b"chromium$n ..."' >> $proot_folder/root/$ui_install
-	echo './install_chromium.sh' >> $proot_folder/root/$ui_install
+	cat << EOF > $proot_folder/root/$ui_install
+distro_name=$distro_name
+## Colors
+n="\e[0m"
+b="\e[0;36m"
+r="\e[0;31m"
+g="\e[1;32m"
+uname=$uname
+ui_name=$ui_name
+ui_package=$ui_package
+EOF
+
+	cat << "EOF" >> $proot_folder/root/$ui_install
+clear
+echo -e ""$b"INTO PROOT DISTRO$n "$g" $distro_name $n..."
+echo
+echo -e "- "$g"Upgrade$n "$b" $distro_name $n"
+apt update && apt upgrade -y
+echo
+echo -e "- "$g"Installing$n "$b"$ui_name $n"
+apt install -y xorg lightdm $ui_package pulseaudio sudo
+echo
+echo -e "- "$b"Create local user$n"
+mkdir /home/$uname && useradd $uname -b /home/ -s /bin/bash && chown $uname:$uname /home/$uname
+echo -e "---- "$g"Set password$n for "$b"local user$n"
+passwd $uname
+echo -e "---- "$g"Add user$n to "$b"sudoers$n"
+echo "$uname ALL=("ALL:ALL") ALL" >> /etc/sudoers
+echo -e "- "$g"Install$n "$b"chromium$n run..."
+./install_chromium.sh
+EOF
 	chmod u+x $proot_folder/root/$ui_install
 }
 
 # Fuera de proot (x11)
 function gen_startubun {
-	echo "am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity" > $proot_out/x11ubun
-	echo "pulseaudio --start --load='module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1' --exit-idle-time=-1" >> $proot_out/x11ubun
-	echo "proot-distro login $distro_name --shared-tmp --user $uname -- x11start" >> $proot_out/x11ubun
+	cat << EOF > $proot_out/x11ubun
+am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity
+pulseaudio --start --load='module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1' --exit-idle-time=-1
+proot-distro login $distro_name --shared-tmp --user $uname -- x11start
+EOF
+	
 	chmod u+x $proot_out/x11ubun
 	if [ -d /data/data/com.termux/files/home/.shortcuts ]
 	then
@@ -71,13 +81,38 @@ function gen_startubun {
 
 # Dentro de proot (x11)
 function gen_startx11 {
-	echo "export PULSE_SERVER=127.0.0.1" > $proot_in/x11start
-	echo "export XDG_RUNTIME_DIR=${TMPDIR}" >> $proot_in/x11start
-	echo "export DISPLAY=:0" >> $proot_in/x11start
-	echo "termux-x11 &" >>  $proot_in/x11start
-	echo "sleep 4" >> $proot_in/x11start
-	echo "dbus-launch --exit-with-session $ui" >> $proot_in/x11start
+	cat << EOF > $proot_in/x11start
+export PULSE_SERVER=127.0.0.1
+export XDG_RUNTIME_DIR=${TMPDIR}
+export DISPLAY=:0
+termux-x11 &
+sleep 4
+dbus-launch --exit-with-session $ui
+EOF
 	chmod u+x $proot_in/x11start
+}
+
+# Fuera de proot (vnc)
+function gen_startubunvnc {
+	cat << EOF > $proot_out/vncubun
+pulseaudio --start --load='module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1' --exit-idle-time=-1
+proot-distro login $distro_name --shared-tmp -- runuser -l $uname -c vncstart
+EOF
+    chmod u+x $proot_out/vncubun
+}
+
+# Dentro de proot (vnc)
+function gen_startvnc {
+	cat << EOF >  $proot_in/vncstart
+mkdir ~/.vnc
+rm -rf /tmp/.X3-lock
+rm -rf /tmp/.X11-unix/X3
+rm ~/.vnc/*.pid
+echo "$ui_vnc" > ~/.vnc/xstartup
+chmod u+x ~/.vnc/xstartup
+vncserver :3 -geometry 1920x1080 && bash
+EOF
+    chmod u+x $proot_in/vncstart
 }
 
 function install_ui {

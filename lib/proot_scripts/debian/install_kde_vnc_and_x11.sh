@@ -21,11 +21,13 @@ g="\e[1;32m"
 function setup {
 	apt update && apt install tigervnc xorg-xhost proot-distro -y
 	proot-distro install $distro_name
+	cp ./lib/proot_scripts/.data/install_chromium.sh $proot_folder/root/
+	chmod u+x $proot_folder/root/install_chromium.sh
 }
 
 # Install Desktop Environment
 function gen_install {
-	cp ./lib/proot_scripts/.data/install_chromium.sh $proot_folder/root/
+	
 	echo "distro_name=$distro_name" > $proot_folder/root/$ui_install
 	echo '## Colors' >> $proot_folder/root/$ui_install
 	echo 'n="\e[0m"'  >> $proot_folder/root/$ui_install
