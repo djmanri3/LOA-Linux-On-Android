@@ -62,6 +62,7 @@ files(){
 	read -p "Press enter to continue..." s
 	echo "--- Install packages..."
 	pkg install ./lib/termux-x11/termux-x11*.deb -y
+	apt upgrade -y
 	echo
 	
 	if [ "$1" == "vanila" ]
