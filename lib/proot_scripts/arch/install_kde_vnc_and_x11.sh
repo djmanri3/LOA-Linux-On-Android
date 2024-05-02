@@ -5,7 +5,7 @@ proot_folder=/data/data/com.termux/files/usr/var/lib/proot-distro/installed-root
 proot_out=$PREFIX/bin
 proot_in=$proot_folder/usr/local/bin
 ui="startplasma-x11"
-ui_package="plasma plasma-wayland-session konsole"
+ui_package="plasma konsole"
 ui_name="KDE"
 ui_install="install_$ui_name.sh"
 
