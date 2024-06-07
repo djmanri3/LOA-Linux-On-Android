@@ -210,7 +210,6 @@ case $1 in
 
 	vanila)
 		tweaks
-		files
 		install
 		files $1
 
