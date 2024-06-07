@@ -1,0 +1,8 @@
+#! /bin/bash
+export XDG_RUNTIME_DIR=/tmp DISPLAY=:0 PULSE_SERVER=tcp:127.0.0.1 && startxfce4
+echo "- Close process of termux-x11..."
+sudo pkill -f "app_process"
+echo "- kill app_process"
+sudo pkill -f "su -"
+echo "- kill session"
+exit

@@ -196,6 +196,11 @@ tweaks(){
 	fi
 
 }
+
+chroot_debian(){
+	lib/chroot_scripts/start_install_debian.sh
+}
+
 #DO IT!
 
 toilet_check
@@ -205,6 +210,7 @@ case $1 in
 
 	vanila)
 		tweaks
+		files
 		install
 		files $1
 
@@ -237,6 +243,14 @@ OR
 
 		echo -e ""$g"Process completed! $n"
 		echo
+	;;
+
+
+	chroot_debian)
+		tweaks
+		files
+		chroot_debian
+		echo -e ""$g"Process completed! $n"
 	;;
 
 	proot_backup)
@@ -387,6 +401,7 @@ OR
 		echo -e "$b- <script_name> + proot_backup <path/name.tar.gz>$n: create backup of proot distro $b(setup storage 'termux-setup-storage')$n"
 		echo -e "$b- <script_name> + proot_restore <path/name.tar.gz>$n: restore proot distro $b(setup storage 'termux-setup-storage')$n"
 		echo -e "$b- <script name> + proot_update$n: update proot"
+		echo -e "$b- <script name> + chroot_debian$n: install chroot of distro debian "$r"[With ROOT]"$b""
 		echo
 		echo " ----------- "
 		echo -e "| "$g"Start ENV$n |"
