@@ -85,8 +85,8 @@
 ```
 
 ### - Start environment:
-- [ ] Execute command **x11vani**
-- [ ] Or install termux:widget[https://f-droid.org/es/packages/com.termux.widget/] add wifdget on home screen, tap on x11vani
+- [ ] Execute command **x11vanikde** or *x11vanixfce4*
+- [ ] Or install termux:widget[https://f-droid.org/es/packages/com.termux.widget/] add wifdget on home screen, tap on x11vanikde or x11vanixfce4
 
 ## PROOT  <a name="id5"></a>
 ### - Scripts:
