@@ -35,7 +35,29 @@ install(){
 	pkg install tur-repo && pkg update
 	
 	pkg install x11-repo pulseaudio -y
-	apt install openssl xfce4* firefox chromium -y
+	
+	clear	
+	echo;
+	echo -e "===== "$b"Desktops"$n" ===="
+	echo " ----------------- "
+	echo -e "| 1. "$b"XFCE4$n        |"
+	echo -e "| 2. "$b"KDE"$n"          |"
+	echo " -----------------"
+	echo;
+	read -p "What Desktop do you want install? " DE
+	case "$DE" in
+		1)
+			echo; echo "Install KDE desktop..."
+			apt install openssl xfce4* firefox chromium -y
+			echo;
+		;;
+
+		2)
+			echo; echo "Install XFCE4 desktop..."
+			apt install openssl plasma konsole dolphin firefox chromium -y
+			echo;
+		;;
+	esac
 }
 
 install_proot(){
@@ -67,26 +89,62 @@ files(){
 	
 	if [ "$1" == "vanila" ]
 	then
-		echo "- Generate script to enable UI..."
-		echo
-		echo "am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity" > ./$name_script
-		echo "export XDG_RUNTIME_DIR=${TMPDIR}" >> ./$name_script
-		echo "sleep 2" >> ./$name_script
-		echo "export DISPLAY=:0" >> ./$name_script
-		echo "termux-x11 &" >> ./$name_script
-		echo "sleep 4" >> ./$name_script
-		echo "pulseaudio --start --load='module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1' --exit-idle-time=-1" >> ./$name_script
-		echo "xfce4-session --display=:0" >> ./$name_script
-		chmod u+x $name_script
-		cp ./$name_script /data/data/com.termux/files/usr/bin/x11vani
-		if [ -d /data/data/com.termux/files/home/.shortcuts ]
-		then
-			mv ./$name_script /data/data/com.termux/files/home/.shortcuts/x11vani
-		else
-			mkdir /data/data/com.termux/files/home/.shortcuts
-			mv ./$name_script /data/data/com.termux/files/home/.shortcuts/x11vani
-		fi
-		echo
+		case "$DE" in
+			1)
+				name_script="x11vanixfce4"
+				echo "- Generate script to enable UI..."
+				echo
+				echo "am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity" > ./$name_script
+				echo "export XDG_RUNTIME_DIR=${TMPDIR}" >> ./$name_script
+				echo "sleep 2" >> ./$name_script
+				echo "export DISPLAY=:0" >> ./$name_script
+				echo "termux-x11 &" >> ./$name_script
+				echo "sleep 4" >> ./$name_script
+				echo "pulseaudio --start --load='module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1' --exit-idle-time=-1" >> ./$name_script
+				echo "xfce4-session --display=:0" >> ./$name_script
+				echo "pkill termux-x11" >> ./$name_script
+				echo "pkill pulseaudio" >> ./$name_script
+				chmod u+x $name_script
+				cp ./$name_script /data/data/com.termux/files/usr/bin/$name_script
+				if [ -d /data/data/com.termux/files/home/.shortcuts ]
+				then
+					mv ./$name_script /data/data/com.termux/files/home/.shortcuts/$name_script
+				else
+					mkdir /data/data/com.termux/files/home/.shortcuts
+					mv ./$name_script /data/data/com.termux/files/home/.shortcuts/$name_script
+				fi
+				echo
+			;;
+
+			2)
+				name_script="x11vanikde"
+				echo "- Generate script to enable UI..."
+				echo
+				echo "am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity" > ./$name_script
+				echo "export XDG_RUNTIME_DIR=${TMPDIR}" >> ./$name_script
+				echo "sleep 2" >> ./$name_script
+				echo "export DISPLAY=:0" >> ./$name_script
+				echo "termux-x11 &" >> ./$name_script
+				echo "sleep 4" >> ./$name_script
+				echo "pulseaudio --start --load='module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1' --exit-idle-time=-1" >> ./$name_script
+				echo "dbus-launch --exit-with-session startplasma-x11" >> ./$name_script
+				echo "pkill termux-x11" >> ./$name_script
+				echo "pkill termux-api" >> ./$name_script
+				echo "pkill org_kde_powerdevil" >> ./$name_script
+				echo "pkill pulseaudio" >> ./$name_script
+
+				chmod u+x $name_script
+				cp ./$name_script /data/data/com.termux/files/usr/bin/$name_script
+				if [ -d /data/data/com.termux/files/home/.shortcuts ]
+				then
+					mv ./$name_script /data/data/com.termux/files/home/.shortcuts/$name_script
+				else
+					mkdir /data/data/com.termux/files/home/.shortcuts
+					mv ./$name_script /data/data/com.termux/files/home/.shortcuts/$name_script
+				fi
+				echo
+			;;
+		esac
 	fi
 
 }
@@ -218,14 +276,14 @@ case $1 in
 		echo -e "
 
 "$g"x11$n:
-1. Execute [x11vani] to start x11 environment and proot distro
+1. Execute [$name_script] to start x11 environment and proot distro
 2. Open app termux-x11
 
 OR
 
 1. Download "$b"termux:widget$n
 2. Add termux widget on your home screen
-3. Tap on x11vani
+3. Tap on $name_script
 4. Open termux-x11
 
 ===================
