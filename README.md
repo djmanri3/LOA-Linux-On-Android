@@ -1,6 +1,6 @@
 # Linux on Android
 
-![Screenshot](Linux_on_Android2.png)
+![Screenshot](Linux_on_Android2.jpg)
 
 # Index
 1. [Requirements](#id1)
