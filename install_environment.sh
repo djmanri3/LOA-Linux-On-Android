@@ -44,7 +44,7 @@ install(){
 	echo -e "| 2. "$b"KDE"$n"          |"
 	echo " -----------------"
 	echo;
-	read -p "What Desktop do you want install? " DE
+	read -p "What Desktop do you want install? (1/2/...) " DE
 	case "$DE" in
 		1)
 			echo; echo "Install KDE desktop..."
@@ -80,7 +80,7 @@ files(){
 	echo "- Install termux-x11.deb..."
 	echo "--- Install apk..."
 	sleep 5
-	termux-open ./lib/termux-x11/termux-x11-universal.apk
+	termux-open ./lib/termux-x11/termux-x11-universal-latest.apk
 	read -p "Press enter to continue..." s
 	echo "--- Install packages..."
 	pkg install ./lib/termux-x11/termux-x11*.deb -y
@@ -117,6 +117,24 @@ files(){
 			;;
 
 			2)
+				echo
+				echo " ======================== "
+				echo -e " "$b"Install termux-api files $n"
+				echo " ======================== "
+				echo
+				echo "Instal this to work wifi, battery status on KDE"
+				echo
+				
+				read -p "- Do you want install termux-api for more compability? (y/n) " R
+				if [ "$R" == "y" ]
+				then
+					echo "- Install termux-api..."
+					echo "--- Install apk..."
+					sleep 5
+					termux-open ./lib/termux-api/com.termux.api_1002.apk
+					read -p "Press enter to continue..."
+				fi
+
 				name_script="x11vanikde"
 				echo "- Generate script to enable UI..."
 				echo
