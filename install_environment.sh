@@ -15,7 +15,7 @@ toilet_check(){
 	which toilet
 	if [ $? != 0 ]
 	then
-		apt -y install toilet
+		apt -y install toilet wget
 	fi
 }
 banner(){
@@ -167,6 +167,26 @@ files(){
 
 }
 
+shop(){
+	echo
+	echo " ======================== "
+	echo -e " "$b"Install termux-shop $n"
+	echo " ======================== "
+	echo
+	read -p "- Do you want install termux-AppStore? (y/n) " R
+	if [ "$R" == "y" ]
+	then
+		mkdir -p ./lib/termux-shop
+		ver="1.1.0"
+		wget "https://github.com/sabamdarif/Termux-AppStore/releases/download/v1.1.0/termux-appstore_"$ver"_aarch64.deb"
+		mv termux-appstore_*_aarch64.deb ./lib/termux-shop/
+		apt install ./lib/termux-shop/termux-appstore_*_aarch64.deb -y
+	fi
+	echo; echo -e "Thanks to "$b"sabamdarif"$n" for termux-appstore :) link of github: "$b"https://github.com/sabamdarif/Termux-AppStore"$n""; echo
+
+	read -p "Press enter to continue..."
+}
+
 proot_setup(){
 
 	chmod u+x ./lib/proot_scripts/install_proot.sh
@@ -288,6 +308,7 @@ case $1 in
 		tweaks
 		install
 		files $1
+		shop
 
 		echo -e ""$g"Process completed!$n"
 		echo

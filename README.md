@@ -147,8 +147,10 @@
 - Proot-distro: https://github.com/termux/proot-distro
 - Udroid: https://udroid-rc.gitbook.io/udroid-wiki/udroid-landing/readme
 - Termux-x11: https://github.com/termux/termux-x11
+- termux-shop: https://github.com/sabamdarif/Termux-AppStore/
 
 # Acknowledgements:  <a name="id8"></a>
 - Team Udroid
 - YouTube chanel Tecnicalbot
 - Team termux
+- sabamdarif
